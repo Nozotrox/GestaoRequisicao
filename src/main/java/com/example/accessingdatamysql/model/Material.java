@@ -11,6 +11,8 @@ public class Material extends Consumivel{
     @Column(nullable = false, columnDefinition = "integer default 1")
     private int quantidade;
 
+    public Material(){}
+
     public Material(String nome, String descricao, @JsonProperty("quantidade") int quantidade) {
         super(nome, descricao);
         this.quantidade = quantidade;

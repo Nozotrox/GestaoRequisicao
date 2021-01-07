@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Requisicao {
@@ -22,17 +23,21 @@ public class Requisicao {
     @Enumerated(EnumType.STRING)
     private EstadoRequisicao estado;
 
+    @ManyToMany
+    @JoinTable(joinColumns = @JoinColumn(name = "codigo_requisicao"), inverseJoinColumns = @JoinColumn(name = "codigo_consumivel"))
+    private List<Consumivel> consumiveis;
 
     @ManyToOne
     @JoinColumn(name="codigo_docente", nullable = false)
     private Docente docente;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="codigo_funcionario", referencedColumnName = "codigo")
+    @ManyToOne
+    @JoinColumn(name="codigo_funcionario", nullable = false)
     private FuncionarioRequisicao funcionario;
 
 
 
+    public Requisicao(){}
 
     public Requisicao(@JsonProperty("destino") String destino,
                       @JsonProperty("dataHora") Date dataHora,
@@ -82,5 +87,21 @@ public class Requisicao {
 
     public void setDocente(Docente docente) {
         this.docente = docente;
+    }
+
+    public FuncionarioRequisicao getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(FuncionarioRequisicao funcionario) {
+        this.funcionario = funcionario;
+    }
+
+    public List<Consumivel> getConsumiveis() {
+        return consumiveis;
+    }
+
+    public void setConsumiveis(List<Consumivel> consumiveis) {
+        this.consumiveis = consumiveis;
     }
 }

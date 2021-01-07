@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.Option;
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -25,8 +26,15 @@ public class UsuarioService {
     @Autowired
     public AdminRepository adminRepository;
 
+
     public void adicionarDocente(Docente docente){
         docenteRepository.save(docente);
+    }
+
+    public ArrayList<Docente> getAllDocs() {
+        ArrayList<Docente> docentes = new ArrayList<>();
+        docenteRepository.findAll().forEach(docentes::add);
+        return docentes;
     }
 
     public Optional<Docente> getDocenteById(int codigo_docente) {
@@ -41,8 +49,16 @@ public class UsuarioService {
         docenteRepository.save(docente);
     }
 
+
+
     public void adicionarFuncionarioRequisicao(FuncionarioRequisicao funcionarioRequisicao) {
         funcionarioReqRepository.save(funcionarioRequisicao);
+    }
+
+    public ArrayList<FuncionarioRequisicao> getAllFuncReq() {
+        ArrayList<FuncionarioRequisicao> funcionarios = new ArrayList<>();
+        funcionarioReqRepository.findAll().forEach(funcionarios::add);
+        return funcionarios;
     }
 
     public Optional<FuncionarioRequisicao> getFuncReqById(int codigo_func) {
@@ -57,8 +73,16 @@ public class UsuarioService {
         funcionarioReqRepository.deleteById(codigo_funcreq);
     }
 
+
+
     public void adicionarAdmin(Administrador admin) {
         adminRepository.save(admin);
+    }
+
+    public ArrayList<Administrador> getAllAdmins() {
+        ArrayList<Administrador> admins = new ArrayList<>();
+        adminRepository.findAll().forEach(admins::add);
+        return admins;
     }
 
     public void updateAdmin(Administrador admin) {

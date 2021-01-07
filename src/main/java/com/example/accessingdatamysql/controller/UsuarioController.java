@@ -10,6 +10,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import javax.print.Doc;
+import java.util.ArrayList;
 import java.util.Optional;
 
 @RestController
@@ -27,6 +28,12 @@ public class UsuarioController {
             return ex.getMessage();
         }
         return "Success";
+    }
+
+    @GetMapping("/getDocente/getAll")
+    @ResponseBody
+    public ArrayList<Docente> getAllDocs() {
+        return usuarioService.getAllDocs();
     }
 
     @GetMapping("/getDocente/{codigo_docente}")
@@ -61,9 +68,15 @@ public class UsuarioController {
         return "Success";
     }
 
+    @GetMapping("/getFuncReq/getAll")
+    @ResponseBody
+    public ArrayList<FuncionarioRequisicao> getAllFuncReq() {
+        return usuarioService.getAllFuncReq();
+    }
+
     @GetMapping("/getFuncReq/{codigo_funcreq}")
-    public FuncionarioRequisicao getFuncReq(@PathVariable int funcreq) {
-        Optional<FuncionarioRequisicao> funcReqOptional = usuarioService.getFuncReqById(funcreq);
+    public FuncionarioRequisicao getFuncReq(@PathVariable int codigo_funcreq) {
+        Optional<FuncionarioRequisicao> funcReqOptional = usuarioService.getFuncReqById(codigo_funcreq);
         if (funcReqOptional.isPresent()) {
             return funcReqOptional.get();
         }
@@ -86,6 +99,13 @@ public class UsuarioController {
     public String adicionarAdmin(@RequestBody @NonNull Administrador admin) {
         usuarioService.adicionarAdmin(admin);
         return "Success";
+    }
+
+
+    @GetMapping("/getAdmin/getAll")
+    @ResponseBody
+    public ArrayList<Administrador> getAllAdmins() {
+        return usuarioService.getAllAdmins();
     }
 
     @GetMapping("/getAdmin/{codigo_admin}")

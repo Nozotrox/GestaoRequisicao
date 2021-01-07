@@ -11,6 +11,8 @@ public class Servico extends Consumivel{
     @Column(nullable = false, columnDefinition = "boolean default true")
     private boolean disponivel;
 
+    public Servico(){}
+
     public Servico(String nome, String descricao, @JsonProperty("disponivel") boolean disponivel) {
         super(nome, descricao);
         this.disponivel = disponivel;

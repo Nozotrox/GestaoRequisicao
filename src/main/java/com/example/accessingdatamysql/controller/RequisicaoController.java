@@ -6,11 +6,9 @@ import com.example.accessingdatamysql.model.Usuario;
 import com.example.accessingdatamysql.service.RequisicaoService;
 import com.example.accessingdatamysql.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @RestController
@@ -23,7 +21,38 @@ public class RequisicaoController {
 
     @PostMapping("/addReq")
     public String adicionarRequisicao(@RequestBody Requisicao requisicao) {
-        requisicaoService.adicionarRequisicao(requisicao);
+        try {
+            requisicaoService.adicionarRequisicao(requisicao);
+        } catch (Exception ex) {
+            return ex.getMessage();
+        }
         return "Sucesso";
+    }
+
+    @PutMapping("/updateReq")
+    public String updateRequest(@RequestBody Requisicao requisicao) {
+        try {
+            requisicaoService.updateRequisicao(requisicao);
+        } catch ( Exception ex ) {
+            return ex.getMessage();
+        }
+        return "Sucesso";
+    }
+
+    @GetMapping("/getReq/{codigo_requisicao}")
+    @ResponseBody
+    public Requisicao getAllRequests(@PathVariable int codigo_requisicao) {
+        Optional<Requisicao> requisicaoOptional = requisicaoService.getReqById(codigo_requisicao);
+        if (requisicaoOptional.isPresent()) {
+            return requisicaoOptional.get();
+        }
+        return null;
+    }
+
+
+    @GetMapping("/getAll")
+    @ResponseBody
+    public ArrayList<Requisicao> getAllRequests() {
+        return requisicaoService.getAllRequest();
     }
 }

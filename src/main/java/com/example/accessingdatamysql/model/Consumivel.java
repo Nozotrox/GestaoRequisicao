@@ -3,6 +3,7 @@ package com.example.accessingdatamysql.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "consumivel")
@@ -17,6 +18,11 @@ public class Consumivel {
 
     @Column(nullable = false, columnDefinition = "varchar(255) default ''")
     protected String descricao;
+
+    @ManyToMany(mappedBy = "consumiveis")
+    protected List<Requisicao> requisicoes;
+
+    public Consumivel(){}
 
     public Consumivel(@JsonProperty("nome") String nome, @JsonProperty("descricao") String descricao) {
         this.nome = nome;
