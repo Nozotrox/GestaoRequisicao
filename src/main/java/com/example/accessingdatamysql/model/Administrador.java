@@ -16,7 +16,12 @@ public class Administrador extends Usuario {
 
     public Administrador(){}
 
-    public Administrador(String nome, String email, String password, String contacto, Genero genero, @JsonProperty("departamento") String departamento) {
+    public Administrador(@JsonProperty("nome") String nome,
+                         @JsonProperty("email") String email,
+                         @JsonProperty("password") String password,
+                         @JsonProperty("contacto") String contacto,
+                         @JsonProperty("genero") Genero genero,
+                         @JsonProperty("departamento") String departamento) {
         super(nome, email, password, contacto, genero);
         this.departamento = departamento;
     }

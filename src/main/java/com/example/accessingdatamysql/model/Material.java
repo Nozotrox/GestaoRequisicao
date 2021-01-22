@@ -13,7 +13,7 @@ public class Material extends Consumivel{
 
     public Material(){}
 
-    public Material(String nome, String descricao, @JsonProperty("quantidade") int quantidade) {
+    public Material(@JsonProperty("nome") String nome,@JsonProperty("descricao") String descricao, @JsonProperty("quantidade") int quantidade) {
         super(nome, descricao);
         this.quantidade = quantidade;
     }

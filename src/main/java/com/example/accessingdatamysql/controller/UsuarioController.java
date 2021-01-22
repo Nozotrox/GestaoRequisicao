@@ -3,13 +3,13 @@ package com.example.accessingdatamysql.controller;
 import com.example.accessingdatamysql.model.Administrador;
 import com.example.accessingdatamysql.model.Docente;
 import com.example.accessingdatamysql.model.FuncionarioRequisicao;
-import com.example.accessingdatamysql.model.Usuario;
+import com.example.accessingdatamysql.responseRequestBodies.Login;
+import com.example.accessingdatamysql.responseRequestBodies.UserCount;
 import com.example.accessingdatamysql.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
-import javax.print.Doc;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -19,6 +19,18 @@ public class UsuarioController {
 
     @Autowired
     public UsuarioService usuarioService;
+
+    @GetMapping("/test")
+    public void test() {
+        usuarioService.test();
+    }
+
+    @PostMapping("/login")
+    @ResponseBody
+    public Docente login (@RequestBody @NonNull Login login) {
+        Docente docente = usuarioService.findDocenteByEmail(login.contacto, login.password);
+        return docente;
+    }
 
     @PostMapping("/adicionarDocente")
     public String adicionarDocente (@RequestBody @NonNull Docente docente) {
@@ -83,7 +95,7 @@ public class UsuarioController {
         return null;
     }
 
-    @PutMapping("/updateFuncReq")
+    @PostMapping("/updateFuncReq")
     public String updateFuncReq(@RequestBody FuncionarioRequisicao funcionarioRequisicao) {
         usuarioService.updateFuncReq(funcionarioRequisicao);
         return "Success";

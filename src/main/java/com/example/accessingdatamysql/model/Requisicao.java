@@ -36,6 +36,11 @@ public class Requisicao {
     private FuncionarioRequisicao funcionario;
 
 
+    @Transient
+    int totalMaterial;
+
+    @Transient
+    int totalServico;
 
     public Requisicao(){}
 
@@ -103,5 +108,29 @@ public class Requisicao {
 
     public void setConsumiveis(List<Consumivel> consumiveis) {
         this.consumiveis = consumiveis;
+    }
+
+    public int getTotalMaterial() {
+        return totalMaterial;
+    }
+
+    public void setTotalMaterial(int totalMaterial) {
+        this.totalMaterial = totalMaterial;
+    }
+
+    public void incrementTotalMaterial() {
+        this.totalMaterial++;
+    }
+
+    public void incrementTotalServices() {
+        this.totalServico++;
+    }
+
+    public int getTotalServico() {
+        return totalServico;
+    }
+
+    public void setTotalServico(int totalServico) {
+        this.totalServico = totalServico;
     }
 }

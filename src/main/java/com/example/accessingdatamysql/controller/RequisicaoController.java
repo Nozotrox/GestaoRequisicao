@@ -49,10 +49,4 @@ public class RequisicaoController {
         return null;
     }
 
-
-    @GetMapping("/getAll")
-    @ResponseBody
-    public ArrayList<Requisicao> getAllRequests() {
-        return requisicaoService.getAllRequest();
-    }
 }

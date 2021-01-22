@@ -25,7 +25,13 @@ public class Docente extends Usuario {
 
     public Docente(){}
 
-    public Docente (String nome, String email, String password, String contacto, Genero genero, @JsonProperty("cadeira") String cadeira, @JsonProperty("numero_requisicoes") int numero_requisicoes) {
+    public Docente (@JsonProperty("nome") String nome,
+                    @JsonProperty("email") String email,
+                    @JsonProperty("password") String password,
+                    @JsonProperty("contacto") String contacto,
+                    @JsonProperty("genero") Genero genero,
+                    @JsonProperty("cadeira") String cadeira,
+                    @JsonProperty("numero_requisicoes") int numero_requisicoes) {
         super(nome, email, password, contacto, genero);
         this.cadeira = cadeira;
         this.numero_requisicoes = numero_requisicoes;

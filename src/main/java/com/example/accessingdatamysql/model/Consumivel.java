@@ -22,6 +22,8 @@ public class Consumivel {
     @ManyToMany(mappedBy = "consumiveis")
     protected List<Requisicao> requisicoes;
 
+    @Column(insertable = false, updatable = false) private String dtype;
+
     public Consumivel(){}
 
     public Consumivel(@JsonProperty("nome") String nome, @JsonProperty("descricao") String descricao) {
@@ -51,5 +53,13 @@ public class Consumivel {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public String getDtype() {
+        return dtype;
+    }
+
+    public void setDtype(String dtype) {
+        this.dtype = dtype;
     }
 }

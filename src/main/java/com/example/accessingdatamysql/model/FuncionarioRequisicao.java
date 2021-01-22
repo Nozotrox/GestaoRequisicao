@@ -17,7 +17,12 @@ public class FuncionarioRequisicao extends Usuario {
 
     public FuncionarioRequisicao(){}
 
-    public FuncionarioRequisicao(String nome, String email, String password, String contacto, Genero genero,@JsonProperty("localizacao") String localizacao) {
+    public FuncionarioRequisicao(@JsonProperty("nome") String nome,
+                                 @JsonProperty("email") String email,
+                                 @JsonProperty("password") String password,
+                                 @JsonProperty("contacto") String contacto,
+                                 @JsonProperty("genero") Genero genero,
+                                 @JsonProperty("localizacao") String localizacao) {
         super(nome, email, password, contacto, genero);
         this.localizacao = localizacao;
     }

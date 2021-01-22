@@ -27,6 +27,11 @@ public class ConsumivelController {
         return "Sucesso";
     }
 
+    @GetMapping("/test")
+    public void test() {
+        consumivelService.test();
+    }
+
     @PostMapping("/addServ")
     public String addServico(@RequestBody Servico servico) {
         try {

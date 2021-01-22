@@ -22,13 +22,9 @@ public class RequisicaoService {
         requisicaoRepository.save(requisicao);
     }
 
-    public ArrayList<Requisicao> getAllRequest() {
-        ArrayList<Requisicao> requisicoes = new ArrayList<>();
-        requisicaoRepository.findAll().forEach(requisicoes::add);
-        return requisicoes;
-    }
-
     public Optional<Requisicao> getReqById(int codigo_requisicao) {
         return requisicaoRepository.findById(codigo_requisicao);
     }
+
+
 }

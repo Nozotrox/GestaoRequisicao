@@ -13,7 +13,7 @@ public class Servico extends Consumivel{
 
     public Servico(){}
 
-    public Servico(String nome, String descricao, @JsonProperty("disponivel") boolean disponivel) {
+    public Servico(@JsonProperty("nome") String nome, @JsonProperty("descricao") String descricao, @JsonProperty("disponivel") boolean disponivel) {
         super(nome, descricao);
         this.disponivel = disponivel;
     }
