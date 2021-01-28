@@ -14,7 +14,9 @@ public class Administrador extends Usuario {
     @Column(nullable = true, columnDefinition = "varchar(50) default ''")
     private String departamento = "";
 
-    public Administrador(){}
+    public Administrador(){
+        this.typeUser = TypeUser.ADMIN;
+    }
 
     public Administrador(@JsonProperty("nome") String nome,
                          @JsonProperty("email") String email,

@@ -1,11 +1,12 @@
 package com.example.accessingdatamysql.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 public class Requisicao {
@@ -17,22 +18,27 @@ public class Requisicao {
     @Column(nullable = false, columnDefinition = "varchar(255) default ''")
     private String destino;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date dataHora;
 
     @Enumerated(EnumType.STRING)
     private EstadoRequisicao estado;
 
-    @ManyToMany
-    @JoinTable(joinColumns = @JoinColumn(name = "codigo_requisicao"), inverseJoinColumns = @JoinColumn(name = "codigo_consumivel"))
-    private List<Consumivel> consumiveis;
+//    @ManyToMany
+//    @JoinTable(joinColumns = @JoinColumn(name = "codigo_requisicao"), inverseJoinColumns = @JoinColumn(name = "codigo_consumivel"))
+//    private List<Consumivel> consumiveis;
+
+
+    @OneToMany(mappedBy = "requisicao")
+    private Set<ConsumivelRequisicao> consumiveis = new HashSet<ConsumivelRequisicao>();
 
     @ManyToOne
     @JoinColumn(name="codigo_docente", nullable = false)
     private Docente docente;
 
     @ManyToOne
-    @JoinColumn(name="codigo_funcionario", nullable = false)
+    @JoinColumn(name="codigo_funcionario", nullable = true)
     private FuncionarioRequisicao funcionario;
 
 
@@ -41,6 +47,9 @@ public class Requisicao {
 
     @Transient
     int totalServico;
+
+    @Transient
+    HashMap<Integer, Integer> qtdMap;
 
     public Requisicao(){}
 
@@ -102,11 +111,20 @@ public class Requisicao {
         this.funcionario = funcionario;
     }
 
-    public List<Consumivel> getConsumiveis() {
+//    public List<Consumivel> getConsumiveis() {
+//        return consumiveis;
+//    }
+//
+//    public void setConsumiveis(List<Consumivel> consumiveis) {
+//        this.consumiveis = consumiveis;
+//    }
+
+
+    public Set<ConsumivelRequisicao> getConsumiveis() {
         return consumiveis;
     }
 
-    public void setConsumiveis(List<Consumivel> consumiveis) {
+    public void setConsumiveis(Set<ConsumivelRequisicao> consumiveis) {
         this.consumiveis = consumiveis;
     }
 
@@ -130,7 +148,17 @@ public class Requisicao {
         return totalServico;
     }
 
+    public HashMap<Integer, Integer> getQtdMap() {
+        return qtdMap;
+    }
+
+    public void setQtdMap(HashMap<Integer, Integer> qtdMap) {
+        this.qtdMap = qtdMap;
+    }
+
     public void setTotalServico(int totalServico) {
         this.totalServico = totalServico;
     }
+
+
 }

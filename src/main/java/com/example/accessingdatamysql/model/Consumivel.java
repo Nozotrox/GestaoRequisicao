@@ -1,9 +1,14 @@
 package com.example.accessingdatamysql.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "consumivel")
@@ -19,8 +24,13 @@ public class Consumivel {
     @Column(nullable = false, columnDefinition = "varchar(255) default ''")
     protected String descricao;
 
-    @ManyToMany(mappedBy = "consumiveis")
-    protected List<Requisicao> requisicoes;
+//    @ManyToMany(mappedBy = "consumiveis")
+//    protected List<Requisicao> requisicoes;
+
+
+    @OneToMany(mappedBy = "consumivel")
+    @JsonIgnore
+    protected Set<ConsumivelRequisicao> requisicoes = new HashSet<ConsumivelRequisicao>();
 
     @Column(insertable = false, updatable = false) private String dtype;
 
@@ -61,5 +71,22 @@ public class Consumivel {
 
     public void setDtype(String dtype) {
         this.dtype = dtype;
+    }
+
+//    public List<Requisicao> getRequisicoes() {
+//        return requisicoes;
+//    }
+//
+//    public void setRequisicoes(List<Requisicao> requisicoes) {
+//        this.requisicoes = requisicoes;
+//    }
+
+
+    public Set<ConsumivelRequisicao> getRequisicoes() {
+        return requisicoes;
+    }
+
+    public void setRequisicoes(Set<ConsumivelRequisicao> requisicoes) {
+        this.requisicoes = requisicoes;
     }
 }

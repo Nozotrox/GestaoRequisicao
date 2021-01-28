@@ -15,7 +15,9 @@ public class FuncionarioRequisicao extends Usuario {
     @OneToMany(mappedBy = "funcionario")
     private List<Requisicao> requisicoes;
 
-    public FuncionarioRequisicao(){}
+    public FuncionarioRequisicao(){
+        this.typeUser = TypeUser.FUNCIONARIO_REQUISICAO;
+    }
 
     public FuncionarioRequisicao(@JsonProperty("nome") String nome,
                                  @JsonProperty("email") String email,
@@ -25,6 +27,7 @@ public class FuncionarioRequisicao extends Usuario {
                                  @JsonProperty("localizacao") String localizacao) {
         super(nome, email, password, contacto, genero);
         this.localizacao = localizacao;
+
     }
 
     public String getLocalizacao() {

@@ -23,7 +23,9 @@ public class Docente extends Usuario {
 
 
 
-    public Docente(){}
+    public Docente(){
+        this.typeUser = TypeUser.DOCENTE;
+    }
 
     public Docente (@JsonProperty("nome") String nome,
                     @JsonProperty("email") String email,
@@ -35,6 +37,7 @@ public class Docente extends Usuario {
         super(nome, email, password, contacto, genero);
         this.cadeira = cadeira;
         this.numero_requisicoes = numero_requisicoes;
+
     }
 
 

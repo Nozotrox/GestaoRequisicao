@@ -26,6 +26,10 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     protected Genero genero;
 
+    @Transient
+    @Enumerated(EnumType.STRING)
+    public TypeUser typeUser;
+
     public Usuario () {}
 
     public Usuario(@JsonProperty("nome") String nome,
@@ -86,5 +90,14 @@ public class Usuario {
 
     public void setGenero(Genero genero) {
         this.genero = genero;
+    }
+
+
+    public TypeUser getTypeUser() {
+        return typeUser;
+    }
+
+    public void setTypeUser(TypeUser typeUser) {
+        this.typeUser = typeUser;
     }
 }

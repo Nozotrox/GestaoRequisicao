@@ -3,6 +3,7 @@ package com.example.accessingdatamysql.controller;
 import com.example.accessingdatamysql.model.Administrador;
 import com.example.accessingdatamysql.model.Docente;
 import com.example.accessingdatamysql.model.FuncionarioRequisicao;
+import com.example.accessingdatamysql.model.Usuario;
 import com.example.accessingdatamysql.responseRequestBodies.Login;
 import com.example.accessingdatamysql.responseRequestBodies.UserCount;
 import com.example.accessingdatamysql.service.UsuarioService;
@@ -11,9 +12,11 @@ import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/api/usuario/")
 public class UsuarioController {
 
@@ -27,9 +30,12 @@ public class UsuarioController {
 
     @PostMapping("/login")
     @ResponseBody
-    public Docente login (@RequestBody @NonNull Login login) {
-        Docente docente = usuarioService.findDocenteByEmail(login.contacto, login.password);
-        return docente;
+    public Usuario login (@RequestBody @NonNull Login login) {
+        Usuario user = usuarioService.findDocenteByEmail(login.contacto, login.password);
+        if (user == null) user = usuarioService.findAdminByEmailPassword(login.contacto, login.password);
+        if (user == null) user = usuarioService.findFuncReqByEmailPassword(login.contacto, login.password);
+
+        return user;
     }
 
     @PostMapping("/adicionarDocente")
@@ -68,6 +74,7 @@ public class UsuarioController {
         return "Success";
     }
 
+
     @DeleteMapping("/deleteDocente/{codigo_docente}")
     public String deleteDocenteById (@PathVariable int codigo_docente) {
         usuarioService.removeDocenteById(codigo_docente);
@@ -95,7 +102,14 @@ public class UsuarioController {
         return null;
     }
 
-    @PostMapping("/updateFuncReq")
+    @GetMapping("/getRandFunc")
+    public FuncionarioRequisicao getRandFunc() {
+        List<FuncionarioRequisicao> funcReq = usuarioService.getAllFuncReq();
+        int randomIndex = (int) (Math.random() * funcReq.size());
+        return funcReq.get(randomIndex);
+    }
+
+    @PutMapping("/updateFuncReq")
     public String updateFuncReq(@RequestBody FuncionarioRequisicao funcionarioRequisicao) {
         usuarioService.updateFuncReq(funcionarioRequisicao);
         return "Success";
@@ -134,6 +148,8 @@ public class UsuarioController {
         usuarioService.updateAdmin(admin);
         return "Success";
     }
+
+
 
     @DeleteMapping("/deleteAdmin/{codigo_admin}")
     public String deleteAdminById(@PathVariable int codigo_admin){

@@ -84,6 +84,12 @@ public class UsuarioService {
         funcionarioReqRepository.save(funcionarioRequisicao);
     }
 
+    public FuncionarioRequisicao findFuncReqByEmailPassword(String email, String password) {
+        List<FuncionarioRequisicao> funcreq = funcionarioReqRepository.findByEmailAndPassword(email, password);
+        if(funcreq.isEmpty()) return null;
+        return funcreq.get(0);
+    }
+
     public void removeFuncReqById(int codigo_funcreq) {
         funcionarioReqRepository.deleteById(codigo_funcreq);
     }
@@ -115,6 +121,24 @@ public class UsuarioService {
 
     public void removeAdminById (int codigo_admin) {
         adminRepository.deleteById(codigo_admin);
+    }
+
+    public void resetPassword (String contacto) {
+        List<Docente> docente = docenteRepository.findByEmailOrContacto(contacto);
+        List<FuncionarioRequisicao> funcreq = funcionarioReqRepository.findByEmailOrContacto(contacto);
+
+        if(!docente.isEmpty()) {
+            docente.get(0).setPassword("RESETED_PASSWORD");
+            docenteRepository.save(docente.get(0));
+            return;
+        }
+
+        if(!funcreq.isEmpty()) {
+            funcreq.get(0).setPassword("RESETED_PASSWORD");
+            funcionarioReqRepository.save(funcreq.get(0));
+            return;
+        }
+
     }
 
     public void test() {
