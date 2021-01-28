@@ -9,6 +9,6 @@ import java.util.List;
 public interface DocenteRepository extends CrudRepository<Docente, Integer> {
 
     List<Docente> findByEmailAndPassword(String email, String password);
-    List<Docente> findByEmailOrContacto(String contacto);
+//    List<Docente> findByEmailOrContacto(String contacto);
 
 }

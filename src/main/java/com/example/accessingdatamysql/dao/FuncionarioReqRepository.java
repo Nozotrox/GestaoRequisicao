@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface FuncionarioReqRepository  extends CrudRepository<FuncionarioRequisicao, Integer> {
     List<FuncionarioRequisicao> findByEmailAndPassword(String email, String password);
-    List<FuncionarioRequisicao> findByEmailOrContacto(String contacto);
+//    List<FuncionarioRequisicao> findByEmailOrContacto(String contacto);
 }

@@ -123,23 +123,7 @@ public class UsuarioService {
         adminRepository.deleteById(codigo_admin);
     }
 
-    public void resetPassword (String contacto) {
-        List<Docente> docente = docenteRepository.findByEmailOrContacto(contacto);
-        List<FuncionarioRequisicao> funcreq = funcionarioReqRepository.findByEmailOrContacto(contacto);
 
-        if(!docente.isEmpty()) {
-            docente.get(0).setPassword("RESETED_PASSWORD");
-            docenteRepository.save(docente.get(0));
-            return;
-        }
-
-        if(!funcreq.isEmpty()) {
-            funcreq.get(0).setPassword("RESETED_PASSWORD");
-            funcionarioReqRepository.save(funcreq.get(0));
-            return;
-        }
-
-    }
 
     public void test() {
         FileReader file = null;
